@@ -4,23 +4,59 @@
   <title>Index page</title>
 <head>
   <body>
-    <form>
-      Account name:<br>
-      <input type="text" name="Account_name"><br>
-      Display name(optional):<br>
+    <form method="get" action:"/formProcessor.html" id="indexForm">
+      <label>Account name:</label><br>
+      <input type="text" name="Account_name" required pattern="[A-z]*.*?"><br>
+      <label>Display name(optional):</label><br>
       <input type="text" name="Display_name"><br>
-      Email:<br>
-      <input type="text" name="Email"><br>
-      Phone number:<br>
-      <input type="text" name="Phone_number"><br>
-      Date of birth:<br>
-      <input type="text" name="Birthday"<br>
-      Zipcode:<br>
-      <input type="text" name="Zipcode"<br>
-      Password:<br>
-      <input type="password" name="Password"><br>
-      password confirmation:<br>
-      <input type="password" name="Password_confirm"><br>
+      <label>Email:</label><br>
+      <input type="text" name="Email" required pattern="..*@..*"><br>
+      <label>Phone number:</label><br>
+      <input type="text" name="Phone_number" required pattern="[0-9]{3}[ |-][0-9]{3}[ |-][0-9]{4}"><br>
+      <label>Date of birth:</label><br>
+      <input id="BirthDate" type="date" name="Birthday"><br>
+      <label>Zipcode:</label><br>
+      <input type="text" name="Zipcode" required pattern="[0-9]{5}"><br>
+      <label>Password:</label><br>
+      <input type="password" id = "Password" name="Password" required><br>
+      <label>password confirmation:</label><br>
+      <input type="password" id = "Confirm_password"  name="Password_confirm" required><br>
+      <input id="time" type="hidden" name="Time" value="time">
     </form>
-  </body>
+
+    <button type="submit" form="indexForm">Submit</button>
+    <button type="reset" form="indexForm">Reset</button>
+
+  <script>
+    alert("sdad");
+       var timeStamp = event.timeStamp;
+       document.getElementById("time").value = timeStamp; //Add timeStamp to hiden field.
+
+       var ps = document.getElementById("Password");
+       var cops = document.getElementById("Confirm_password");
+
+       function validatePassword(){
+         if(ps.value != cops.value ){
+           cops.setCustomValidity("Passwords Don't Match");
+         }else{
+           cops.setCustomValidity('');
+         }
+       }
+       ps.onchange = validatePassword;
+       cops.onkeyup = validatePassword;
+
+
+       var bd = document.getElementById("BirthDate");
+       var d = new Date(2000,1,9);
+
+       bd.addEventListener("input", checkAge);
+       function checkAge(){
+         if(bd > d){
+           alert("Not good!")
+         }
+       }
+  </script>
+
+
+ </body>
 </html>
